@@ -1,0 +1,78 @@
+extends ./layouts/default
+
+block title
+	title Koa Douban 首页
+
+block content
+	include ./includes/header
+	.container-fluid
+		.container
+			.row
+				.col-md-6
+					.card
+						img.card-img-top(src="http://h.hiphotos.baidu.com/image/pic/item/ca1349540923dd54e1964cb2dc09b3de9d824807.jpg", data-video="http://video.iblack7.com/tgGnZRn3W4Ajw6PGcA_9Z.mp4")
+						.card-body
+							h4.card-title 这是电影标题
+							p.card-desc 这是电影描述
+						.card-footer
+							small.text-muted 1天前更新
+				.col-md-6
+					.card
+						img.card-img-top(src="http://h.hiphotos.baidu.com/image/pic/item/ca1349540923dd54e1964cb2dc09b3de9d824807.jpg", data-video="http://video.iblack7.com/tgGnZRn3W4Ajw6PGcA_9Z.mp4")
+						.card-body
+							h4.card-title 这是电影标题
+							p.card-desc 这是电影描述
+						.card-footer
+							small.text-muted 1天前更新
+			.row
+				.col-md-6
+					.card
+						img.card-img-top(src="http://h.hiphotos.baidu.com/image/pic/item/ca1349540923dd54e1964cb2dc09b3de9d824807.jpg", data-video="http://video.iblack7.com/tgGnZRn3W4Ajw6PGcA_9Z.mp4")
+						.card-body
+							h4.card-title 这是电影标题
+							p.card-desc 这是电影描述
+						.card-footer
+							small.text-muted 1天前更新
+				.col-md-6
+					.card
+						img.card-img-top(src="http://h.hiphotos.baidu.com/image/pic/item/ca1349540923dd54e1964cb2dc09b3de9d824807.jpg", data-video="http://video.iblack7.com/tgGnZRn3W4Ajw6PGcA_9Z.mp4")
+						.card-body
+							h4.card-title 这是电影标题
+							p.card-desc 这是电影描述
+						.card-footer
+							small.text-muted 1天前更新
+	#myModal.modal.hide.fade(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+		.modal-dialog.modal-lg
+			#dplayer.modal-content
+
+	include ./includes/script
+	script.
+		var player = null;
+		$(function () {
+			$('#myModal').on('hidden.bs.modal', function (e) {
+				if (player && player.pause) player.pause()
+			})
+
+			$('.card-img-top').click(function (e) {
+				var video = $(this).data('video');
+				var image = $(this).attr('src');
+				$('#myModal').modal('show')
+				if (!player) {
+					player = new DPlayer({
+						container: document.getElementById('dplayer'),
+						screenshot: true,
+						video: {
+							url: 'video',
+							pic: 'image',
+							thumbnails: 'image'
+						}
+					});
+				} else {
+					player.switchVideo({
+						url: 'video',
+						pic: 'image',
+						type: 'auto'
+					})
+				}
+			})
+		})
